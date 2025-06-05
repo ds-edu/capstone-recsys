@@ -1,7 +1,7 @@
 ![cover_photo](reports/figures/recsys_cover.png)
 
 
-# Recommendation Engine for an e-commerce platform
+# AgentRex: Multi-Strategy E-Commerce Recommendation Engine
 
 *In the current digital landscape, users encounter an overwhelming abundance of information and options across various platforms,  which is particularly notable in e-commerce websites(products), streaming services (movies and music), social media (content), and news platforms. Consequently, users frequently experience difficulty in locating or navigating through the vast selection of items or content that resonate with their interests, which can lead to a suboptimal user experience.*
 

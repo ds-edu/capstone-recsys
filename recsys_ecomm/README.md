@@ -90,10 +90,16 @@ There is a decision block which requires setting a threshold on the % of empty r
 
 - **NLP Insights** 
 
-  - Analyzed word counts in product titles, descriptions, and features.
-  ![wc_title](reports/figures/word_count_title.png)
-  ![wc_feats](reports/figures/word_count_features.png)
-  ![wc_desc](reports/figures/word_count_description.png)
+  - Distribution of word lengths in product titles, descriptions, and features.
+
+    ![wc_title](reports/figures/word_count_title.png)
+
+    ![wc_feats](reports/figures/word_count_features.png)
+
+    ![wc_desc](reports/figures/word_count_description.png)
+
+    > Note: The outliers were included in the NLP processing for this specific run. Should there be technical constraints, the decision to process the outliers should be aligned with the stakeholders and technical owners. 
+
 
 ## 4. Feature Engineering
 

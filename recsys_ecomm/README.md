@@ -1,4 +1,4 @@
-![cover_photo](./docs/readme_files/clustered_wide.png)
+![cover_photo](reports/figures/recsys_cover.png)
 
 
 # Recommendation Engine for an e-commerce platform
@@ -33,7 +33,7 @@ Due to technical resource constraints, only the appliances data were extracted a
 
 The notebook extracts the appliances json files from the following URLs:
 
-[Amazon Users Reviews](https://mcauleylab.ucsd.edu:8443/public_datasets/data/amazon_2023/raw/review_categories/Appliances.jsonl.gz)
+[Amazon Users Reviews](https://mcauleylab.ucsd.edu:8443/public_datasets/data/amazon_2023/raw/review_categories/Appliances.jsonl.gz)\
 [Appliances Metadata](https://mcauleylab.ucsd.edu:8443/public_datasets/data/amazon_2023/raw/meta_categories/meta_Appliances.jsonl.gz)
 
 A user-defined function reads the json files in manageable chunks, samples and combines them. There is also an option to read json files uploaded locally. 
@@ -55,6 +55,10 @@ There is a decision block which requires setting a threshold on the % of empty r
 
 - **Merged** product metadata and ratings on `parent_asin`.  
 
+
+
+
+
 ## 3. Exploratory Data Analysis (EDA)
 
 - **Summary Statistics**:
@@ -63,8 +67,6 @@ There is a decision block which requires setting a threshold on the % of empty r
   - Total ratings: ~5567
   - Average ratings per product: ~206.93
   - Average ratings per user: ~1.04
-
-
 
 - **Category Insights**:
   - For this specific run, most ratings are concentrated in a few main categories (e.g., "Amazon Home", "Appliances", "Grocery")
@@ -77,8 +79,9 @@ There is a decision block which requires setting a threshold on the % of empty r
 - **Ratings Distributions**:
 
   - Plotted rating distributions and counts.
-  ![rats_kde](reports/figures/ratings_kdeplot.png)
-  ![rats_count](reports/figures/ratings_countplot.png)
+
+    ![rats_kde](reports/figures/ratings_kdeplot.png)
+    ![rats_count](reports/figures/ratings_countplot.png)
 
   - Ratings by ASIN and User ID.
 
@@ -86,12 +89,10 @@ There is a decision block which requires setting a threshold on the % of empty r
     ![rats_user](reports/figures/ratings_by_user_id.png)
 
 - **NLP Insights** 
-Analyzed word counts in product titles, descriptions, and features.
 
+  - Analyzed word counts in product titles, descriptions, and features.
   ![wc_title](reports/figures/word_count_title.png)
-
   ![wc_feats](reports/figures/word_count_features.png)
-
   ![wc_desc](reports/figures/word_count_description.png)
 
 ## 4. Feature Engineering

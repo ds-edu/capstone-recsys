@@ -3,35 +3,48 @@
 
 # AgentRex: Multi-Strategy E-Commerce Recommendation Engine
 
-*In the current digital landscape, users encounter an overwhelming abundance of information and options across various platforms,  which is particularly notable in e-commerce websites(products), streaming services (movies and music), social media (content), and news platforms. Consequently, users frequently experience difficulty in locating or navigating through the vast selection of items or content that resonate with their interests, which can lead to a suboptimal user experience.*
+*In the dynamic landscape of e-commerce and retail, recommendation systems are integral to enhancing customer experiences and fostering business growth.*
 
-*The core challenge resides in the effective filtration of information overload and the provision of personalized recommendations that are relevant, engaging, and aligned with user preferences.* 
+*As consumers navigate millions of online products, they often encounter information overload, which complicates the process of identifying items that align with their interests. The primary challenge is effectively filtering this abundance of information while delivering personalized recommendations that are relevant, engaging, and tailored to individual preferences. The ability to quickly provide relevant and personalized suggestions is not only a technical challenge but also a critical competitive advantage.*
+
+*Recommendation engines address this need by generating personalized product suggestions based on user behavior, preferences, item attributes, and various other factors. These systems are extensively utilized in the retail sector to enhance customer engagement, elevate average order values, and improve conversion rates. Prominent companies, such as Amazon and Walmart, leverage sophisticated recommendation algorithms to optimize inventory turnover and maximize revenue per user.*
+
+*This capstone project focuses on the development and evaluation of a multi-strategy recommendation engine utilizing real-world data. It encompasses the complete process—from data preprocessing and exploratory data analysis to model selection, evaluation, and optimization—highlighting the practical application of machine learning techniques in the creation of advanced recommendation engines.*
 
 ---
 ## 1. Data
 
 **Objectives:**
 
-The project aims to design and implement a recommender engine that:
+The project focuses on creating a multi-strategy recommendation engine that leverages machine learning algorithms to provide personalized recommendations. The main objectives are to:
 
-- Enhances the accuracy of user preference prediction through the application of advanced algorithms such as collaborative filtering, content-based filtering, or hybrid approaches.
+- Improve the accuracy of predicting user preferences by using advanced algorithms such as collaborative filtering, content-based filtering, or hybrid approaches.
 
-- Developing methodologies to alleviate the cold-start problem for both new users and new items.
+- Develop methods to address the cold-start problem for both new users and new items.
 
 
 **Scope of Solution Space:**
 
-The project will concentrate on developing a recommendation engine that utilizes machine learning algorithms to deliver personalized recommendations. The proof of concept (POC) will be created using Jupyter Notebooks until optimal model performance is achieved.
 
-It is important to clarify that this project does not involve the creation of any front-end components for an eCommerce website. The next step, which involves integrating the model into an eCommerce platform, should be planned as a separate project.
+<!-- Similar to a hybrid recommender system multi-strategy combines multiple recommendation techniques to improve accuracy, overcome limitations of individual methods, and enhance user experience. 
+
+A multi-strategy recommender engine:*
+- Leverages multiple algorithms (CF, CBF, popularity, etc.)
+- Increases recommendation robustness and personalization
+- Helps overcome cold start, sparsity, and overfitting
+- Can be tuned dynamically based on use case and user feedback
+
+Unlike the hybrid recommenders which are tightly coupled models and methods, A multi-strategy recommender emphasizes loosely-coupled, independent models where different the algorithms operate independently, with the methods being modular, and with their results that can be strategically combined -->
+
+The proof of concept (POC) will be developed using Jupyter Notebooks until we achieve optimal model performance.
+
+It's important to clarify that this project does not include the development of any front-end components for an eCommerce website. The next step, which involves integrating the model into an eCommerce platform, should be planned as a separate project.
 
 **Data Source:** [UCSD Amazon Reviews 2023 | McAuley Labs](https://amazon-reviews-2023.github.io/)
 
 The dataset includes a large collection of user reviews, product metatdata, and product links collected in 2023 by [McAuley Lab](https://cseweb.ucsd.edu/~jmcauley/)\
 Detailed description of the fields can be found in the aforementioned link.\
-Due to technical resource constraints, only the appliances data were extracted and further resampled for this analysis. 
-
-The notebook extracts the appliances json files from the following URLs:
+Due to technical resource constraints, only the appliances data were extracted and further resampled for this analysis. The notebook extracts the appliances json files from the following URLs:
 
 [Amazon Users Reviews](https://mcauleylab.ucsd.edu:8443/public_datasets/data/amazon_2023/raw/review_categories/Appliances.jsonl.gz)\
 [Appliances Metadata](https://mcauleylab.ucsd.edu:8443/public_datasets/data/amazon_2023/raw/meta_categories/meta_Appliances.jsonl.gz)
@@ -44,7 +57,7 @@ As the focus of the project is in recommendation, only the ratings, user-related
 There is a decision block which requires setting a threshold on the % of empty rows that can be used as a criteria for dropping. Initially automated to drop columns that exceed the selected threshold but resorted to manual. 
 
 - **Meta Data**:
-  - Dropped unnecessary columns (e.g., images, videos, price, average_rating, etc.).
+  - Dropped unnecessary columns for NLP and  (e.g., images, videos, price, average_rating, etc.).
   - Checked and filled missing values in key columns (`store`, `main_category`).
   - Extracted `subcategory` from the last element of the `categories` list or used `main_category` as fallback.
   - Ensured no nulls in critical columns after cleaning.

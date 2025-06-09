@@ -274,7 +274,7 @@ For each user, if at least one relevant item is in the top-K recommendations, it
     - MAP: ~0.26
     - NDCG@10: ~0.32
 
-A sparse dataset such as the amazon reviews lower metric values are common and expected. Below metric values can be considered a good baseline. 
+With sparse dataset such as the amazon reviews, lower metric values are common and expected. Below metric values can be considered a good baseline. 
 
 - HitRate@10 ~ 0.5
 - Precision@10 ~ 0.08

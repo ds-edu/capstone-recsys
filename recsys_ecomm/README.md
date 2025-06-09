@@ -234,7 +234,26 @@ Latent factor model for user-item interactions.
 
 ## 7. Evaluation
 
-- **Metrics**: Used Hit Rate, Precision@K, Recall@K, MAP, and NDCG@K.
+
+**Metrics**: \
+In ranked collaborative filtering tasks like item-based or user-based recommendation, evaluation metrics like Precision@K, Recall@K, NDCG@K, and MAP@K are used to assess the quality of the ranked lists.
+
+- **Precision@K**:\
+Fraction of recommended items in the top-K that are relevant.
+
+- **Recall@k** :\
+Fraction of all relevant items that are in the top-K recommendations
+
+- **MAP@K (Mean Average Precision)** :\
+Averages the precision at each position where a relevant item occurs
+
+- **NDCG@K (Normalized Discounted Cumulative Gain)**: \
+Measures ranking quality — rewards placing relevant items higher
+
+- **Hit Rate@K**:\
+For each user, if at least one relevant item is in the top-K recommendations, it's a "hit"
+
+
 - **Results** (Top-10, Leave-One-Out evaluation):
   - **Item-Based CF**: 
     - Hit Rate: ~0.75
@@ -255,7 +274,17 @@ Latent factor model for user-item interactions.
     - MAP: ~0.26
     - NDCG@10: ~0.32
 
-- **Visualization**: Comparing evaluation metrics for all algorithms.
+A sparse dataset such as the amazon reviews lower metric values are common and expected. Below metric values can be considered a good baseline. 
+
+- HitRate@10 ~ 0.5
+- Precision@10 ~ 0.08
+- Recall@10 ~ 0.05
+- NDCG@10 ~ 0.2
+- MAP@10 ~ 0.05
+
+
+**Visualization**: Comparing evaluation metrics for all algorithms. 
+
 ![ranking_metrics](reports/figures/top-k_ranking_metrics.png)
 
 ## 8. Key Findings

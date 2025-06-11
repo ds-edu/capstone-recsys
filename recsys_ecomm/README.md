@@ -89,9 +89,9 @@ There is a decision block which requires setting a threshold on the % of empty r
   - Subcategories like "Reusable Filters" and "Permanent Filters" are prominent.
     ![sub_cats](reports/figures/subcats_barh.png)
 
-- **Ratings Distributions**:
+- **Ratings Distribution**:
 
-  - Plotted rating distributions and counts.
+  - Plotted rating distribution and counts.
 
     ![rats_kde](reports/figures/ratings_kdeplot.png)
     ![rats_count](reports/figures/ratings_countplot.png)

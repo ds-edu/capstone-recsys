@@ -125,72 +125,41 @@ One of the many solutions to address a cold-start problem is to recommend the to
 - **Top K Frequently Rated Products**
   - Products with the most number of ratings
 
-|parent_asin|title                                                                                                                                                                                                   |main_category           |subcategory        |ratings_count|
-|-----------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------|-------------------|-------------|
-|B07RNJY499 |iPartPlusMore Reusable Coffee Filters Compatible with 1.0 and 2.0 Keurig Single Cup Coffee Maker - BPA-Free Stainless Steel Refillable K Cup Coffee Filter with Fine Mesh Screen (Pack of 4)            |Amazon Home             |Reusable Filters   |1329         |
-|B0B3DB5HTC |12 Pack Keurig Filter Replacement by K&J - Compatible with Keurig Coffee Machine (2.0 and older)                                                                                                        |Amazon Home             |Disposable Filters |1220         |
-|B000DLB2FI |Keurig My K-Cup Reusable Coffee Filter - Old Model                                                                                                                                                      |Amazon Home             |Reusable Filters   |681          |
-|B0BHNSLKNZ |Cuisinart Replacement Water Filters, 2-Pack                                                                                                                                                             |Amazon Home             |Permanent Filters  |605          |
-|B07P3Y8JWY |Disposable Paper Coffee Filters 600 count - Compatible with Keurig, K-Cup machines & other Single Serve Coffee Brewer Reusable K Cups - Use Your Own Coffee & Make Your Own Pods - Works with All Brands|Amazon Home             |Reusable Filters   |577          |
-|B0045LLC7K |Frigidaire WF3CB Puresource3 Refrigerator Water Filter , White, 1 Count (Pack of 1)                                                                                                                     |Appliances              |Water Filters      |574          |
-|B092LLM7H3 |Reusable coffee pods for Coffee Makers (4 PACK Black and Purple)                                                                                                                                        |Grocery                 |Reusable Filters   |545          |
-|B01IAFNZGC |EXCELPURE 5231JA2006A Replacement for LG LT600P,5231JA2006B, Kenmore 46-9990, 5231JA2006F,R-9990, 5231JA2006E, LFX25975ST, LFX25960ST, EFF-6003A, LFX23961ST, SGF-LB60, Refrigerator Water Filter, 3PACK|Tools & Home Improvement|Water Filters      |10           |
-|B0BJ2CJTB5 |Mini Washing Machine Portable Turbine Washer with USB for Travel Business Trip or College Rooms (Speed Control Model), White, 1pack                                                                     |Appliances              |Portable Washers   |5            |
-|B01DMRHDZ2 |ClimaTek Gas Oven Range Stove Ignitor Igniter Fits Magic Chef WB13K21                                                                                                                                   |Industrial & Scientific |Parts & Accessories|1            |
+  - [Result: Top 10 Frequently Rated Products](data/processed/top_10_frequently_rated.csv)
 
-<br>
-<br>
 
 - **Top K Highly Rated Products**
 
   - Products with the highest number of Average ratings (Uses Bayesian Average)
 
-|asin      |main_category|subcategory       |title                                                                                                                                                                                                   |bayesian_rating|
-|----------|-------------|------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------|
-|B01DLEL4EM|Amazon Home  |Disposable Filters|12 Pack Keurig Filter Replacement by K&J - Compatible with Keurig Coffee Machine (2.0 and older)                                                                                                        |4.485          |
-|B01GAGM62M|Amazon Home  |Disposable Filters|12 Pack Keurig Filter Replacement by K&J - Compatible with Keurig Coffee Machine (2.0 and older)                                                                                                        |4.185          |
-|B01DP1IWKU|Grocery      |Reusable Filters  |Reusable coffee pods for Coffee Makers (4 PACK Black and Purple)                                                                                                                                        |4.149          |
-|B0045LLC7K|Appliances   |Water Filters     |Frigidaire WF3CB Puresource3 Refrigerator Water Filter , White, 1 Count (Pack of 1)                                                                                                                     |4.108          |
-|B00LGEKOMS|Amazon Home  |Reusable Filters  |iPartPlusMore Reusable Coffee Filters Compatible with 1.0 and 2.0 Keurig Single Cup Coffee Maker - BPA-Free Stainless Steel Refillable K Cup Coffee Filter with Fine Mesh Screen (Pack of 4)            |4.036          |
-|B0001IRRLG|Amazon Home  |Permanent Filters |Cuisinart Replacement Water Filters, 2-Pack                                                                                                                                                             |4.011          |
-|B00BUFJBQS|Amazon Home  |Reusable Filters  |Disposable Paper Coffee Filters 600 count - Compatible with Keurig, K-Cup machines & other Single Serve Coffee Brewer Reusable K Cups - Use Your Own Coffee & Make Your Own Pods - Works with All Brands|4.009          |
-|B01AUBYMK2|Amazon Home  |Reusable Filters  |iPartPlusMore Reusable Coffee Filters Compatible with 1.0 and 2.0 Keurig Single Cup Coffee Maker - BPA-Free Stainless Steel Refillable K Cup Coffee Filter with Fine Mesh Screen (Pack of 4)            |3.963          |
-|B000TETMVK|Amazon Home  |Permanent Filters |Cuisinart Replacement Water Filters, 2-Pack                                                                                                                                                             |3.95           |
-|B06X9RFT2J|Amazon Home  |Reusable Filters  |iPartPlusMore Reusable Coffee Filters Compatible with 1.0 and 2.0 Keurig Single Cup Coffee Maker - BPA-Free Stainless Steel Refillable K Cup Coffee Filter with Fine Mesh Screen (Pack of 4)            |3.946          |
+  - [Result: Top 10 Highly Rated Products](data/processed/top_10_most_rated.csv) 
 
 
+## 4. Pre-processing and Feature Engineering
 
+This stage integrates feature engineering, text preprocessing, and essential NLP methods for effective similarity search and recommendations.
 
-## 4. Feature Engineering
+**Feature Engineering**:
+- Maker: Brand or manufacturer field was extracted from the json entry in the [details] column of the dataset. 
+- Feature Group: Combined `parent_asin`, `main_category`, `subcategory`, `maker`, and `title` into a single string for NLP-based similarity.
 
-- **Feature Group**: Combined `parent_asin`, `main_category`, `subcategory`, `maker`, and `title` into a single string for NLP-based similarity.
-- **Text Processing**: Applied preprocessing, tokenization, and lemmatization to the feature group.
+**NLP**:
+- Text Pre-processing
+- Tokenization
+- Lemmatization
 
-## 5. Content-Based Filtering
+### 4.1 Content-Based Filtering
+
+Content-based filtering is a recommendation technique that suggests products to a buyer/user by analyzing the features of the products they have previously liked or interacted with. The technique uses content/information such as categories, keywords, or descriptions to match similar products to the user's preferences. Key steps:
 
 - **TF-IDF Vectorization**: Vectorized the processed feature group.
 - **Cosine Similarity**: Calculated pairwise similarities between products.
 
+### Option A: Similar to ASIN
+Find similar products using ASIN (product ID/key):
+- Sample Product ASIN: ***B000DLB2FI***
 
-### Option A: Similar to ASIN ID (key)
-Find similar items by ASIN
-- Sample ASIN: ***B000DLB2FI***
-
-**Top 10 Similar to Item:**
-
-|parent_asin|main_category           |subcategory       |maker         |title                                                                                                                                                                                                   |similarity         |
-|-----------|------------------------|------------------|--------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------|
-|B07P3Y8JWY |Amazon Home             |Reusable Filters  |Simple Cups   |Disposable Paper Coffee Filters 600 count - Compatible with Keurig, K-Cup machines & other Single Serve Coffee Brewer Reusable K Cups - Use Your Own Coffee & Make Your Own Pods - Works with All Brands|0.4219590337271575 |
-|B07RNJY499 |Amazon Home             |Reusable Filters  |iPartsPlusMore|iPartPlusMore Reusable Coffee Filters Compatible with 1.0 and 2.0 Keurig Single Cup Coffee Maker - BPA-Free Stainless Steel Refillable K Cup Coffee Filter with Fine Mesh Screen (Pack of 4)            |0.40626391302493847|
-|B0B3DB5HTC |Amazon Home             |Disposable Filters|K&J           |12 Pack Keurig Filter Replacement by K&J - Compatible with Keurig Coffee Machine (2.0 and older)                                                                                                        |0.3411060503294809 |
-|B092LLM7H3 |Grocery                 |Reusable Filters  |Delibru       |Reusable coffee pods for Coffee Makers (4 PACK Black and Purple)                                                                                                                                        |0.3389491204773901 |
-|B0BHNSLKNZ |Amazon Home             |Permanent Filters |Cuisinart     |Cuisinart Replacement Water Filters, 2-Pack                                                                                                                                                             |0.15453668204547413|
-|B09YRPT4Q2 |Amazon Home             |Water Filters     |BELVITA       |BELVITA ADQ747935 Water Filter Replacement,Compatible with LT1000P,LFXS26973S,LMXS28626S,LMXS30796S,LMXC23796S,Kenmore Elite 9980 ADQ74793501 MDJ64844601,3 Pack                                        |0.11837583414486465|
-|B0045LLC7K |Appliances              |Water Filters     |Frigidaire    |Frigidaire WF3CB Puresource3 Refrigerator Water Filter , White, 1 Count (Pack of 1)                                                                                                                     |0.10011775415853462|
-|B01IAFNZGC |Tools & Home Improvement|Water Filters     |EXCELPURE     |EXCELPURE 5231JA2006A Replacement for LG LT600P,5231JA2006B, Kenmore 46-9990, 5231JA2006F,R-9990, 5231JA2006E, LFX25975ST, LFX25960ST, EFF-6003A, LFX23961ST, SGF-LB60, Refrigerator Water Filter, 3PACK|0.07943687604149981|
-|B0BC65XJLJ |Amazon Home             |Water Filters     |KASTORE F1    |W10295370A Water FiIter Cap Replacement, Compatible with EDR1RXD1 Refrigerator Water FiIter 1 46-9081, 46-9930 Water FiIter Cap Replacement 1, 3Packs                                                   |0.05484415854521352|
-|B07S9DJ2S2 |Amazon Home             |Ice Makers        |Amazon Renewed|Frigidaire Portable Compact Maker, Counter Top Ice Making Machine, 26lb per day (Blue) (EFIC108-BLUE) (Renewed)                                                                                         |0.05243582251940254|
-
+- [Result: Top 10 Similar to Product ASIN](data/processed/cbf_top10_similar_to_B000DLB2FI.csv)
 
 
 ### Option B: Similar to text query
@@ -198,86 +167,42 @@ Find similar items using a vectorized text query (e.g., product description or s
 
 - Sample keyword search query =  ***'K-Cup Reusable Coffee Filter'***
 
-**Top 10 Products similar to query:**
-
-|parent_asin|main_category           |subcategory       |maker         |title                                                                                                                                                                                                   |distance           |
-|-----------|------------------------|------------------|--------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------|
-|B000DLB2FI |Amazon Home             |Reusable Filters  |Keurig Kitchenware|Keurig My K-Cup Reusable Coffee Filter - Old Model                                                                                                                                                      |0.6124652823568978 |
-|B07P3Y8JWY |Amazon Home             |Reusable Filters  |Simple Cups   |Disposable Paper Coffee Filters 600 count - Compatible with Keurig, K-Cup machines & other Single Serve Coffee Brewer Reusable K Cups - Use Your Own Coffee & Make Your Own Pods - Works with All Brands|0.5178580622168953 |
-|B092LLM7H3 |Grocery                 |Reusable Filters  |Delibru       |Reusable coffee pods for Coffee Makers (4 PACK Black and Purple)                                                                                                                                        |0.48147325315660827|
-|B07RNJY499 |Amazon Home             |Reusable Filters  |iPartsPlusMore|iPartPlusMore Reusable Coffee Filters Compatible with 1.0 and 2.0 Keurig Single Cup Coffee Maker - BPA-Free Stainless Steel Refillable K Cup Coffee Filter with Fine Mesh Screen (Pack of 4)            |0.44580092914805713|
-|B0B3DB5HTC |Amazon Home             |Disposable Filters|K&J           |12 Pack Keurig Filter Replacement by K&J - Compatible with Keurig Coffee Machine (2.0 and older)                                                                                                        |0.1796195100888521 |
-|B0BHNSLKNZ |Amazon Home             |Permanent Filters |Cuisinart     |Cuisinart Replacement Water Filters, 2-Pack                                                                                                                                                             |0.12265359099238245|
-|B0045LLC7K |Appliances              |Water Filters     |Frigidaire    |Frigidaire WF3CB Puresource3 Refrigerator Water Filter , White, 1 Count (Pack of 1)                                                                                                                     |0.11482036702444197|
-|B09YRPT4Q2 |Amazon Home             |Water Filters     |BELVITA       |BELVITA ADQ747935 Water Filter Replacement,Compatible with LT1000P,LFXS26973S,LMXS28626S,LMXS30796S,LMXC23796S,Kenmore Elite 9980 ADQ74793501 MDJ64844601,3 Pack                                        |0.09395323461334498|
-|B01IAFNZGC |Tools & Home Improvement|Water Filters     |EXCELPURE     |EXCELPURE 5231JA2006A Replacement for LG LT600P,5231JA2006B, Kenmore 46-9990, 5231JA2006F,R-9990, 5231JA2006E, LFX25975ST, LFX25960ST, EFF-6003A, LFX23961ST, SGF-LB60, Refrigerator Water Filter, 3PACK|0.07949516104560764|
-|B0BD2MT2FN |Amazon Home             |Milk Frothing Pitchers|CACAKEE       |CACAKEE Milk Frothing Pitcher, 12 OZ/350ML Stainless Steel Espresso Steaming Pitchers, Coffee Milk Frother Jug for Espresso Machines Cappuccino Latte Art, Pour Cup                                     |0.046603226414400775|
+- [Result: Top 10 Products similar to query](data/processed/cbf_top10_similar_query.csv)
 
 
 ## 6. Collaborative Filtering
 
-- **Thresholds**: Set minimum ratings for products (5) and users (2) to reduce noise.
+Collaborative filtering is a technique used in recommendation systems to suggest products to users based on the preferences and behavior of similar users or similar products. Instead of relying on product attributes (like genre or price), collaborative filtering learns from user-item interactions (e.g., ratings, clicks, purchases).
+
+Noise reduction was implemented as the first step in the process. Excessive noise can distort user preferences, leading to poor or irrelevant choices, which negatively impacts model performance. Addressing this issue is crucial for improving prediction accuracy, speeding up training and computation, and enhancing the overall user experience.
+
+Noise Reduction Step: Set minimum ratings for products (5) and users (2)
 
 ### Item-Based CF: 
-Recommends items similar to those a user has rated.
+
+Recommends products similar to those a user has rated.
+
 - Sample ASIN ID rated by user: ***B000DLB2FI***
 
-**Top 10 Recommended Products from Similar Users:**
-
-|asin      |main category|subcategory       |title                                                                                                                                                                                                   |distance          |
-|----------|-------------|------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------|
-|B00BUFJBQS|Amazon Home  |Reusable Filters  |Disposable Paper Coffee Filters 600 count - Compatible with Keurig, K-Cup machines & other Single Serve Coffee Brewer Reusable K Cups - Use Your Own Coffee & Make Your Own Pods - Works with All Brands|0.9828166264927277|
-|B0001IRRLQ|Amazon Home  |Permanent Filters |Cuisinart Replacement Water Filters, 2-Pack                                                                                                                                                             |1.0               |
-|B0001IRRLG|Amazon Home  |Permanent Filters |Cuisinart Replacement Water Filters, 2-Pack                                                                                                                                                             |1.0               |
-|B000TETMVK|Amazon Home  |Permanent Filters |Cuisinart Replacement Water Filters, 2-Pack                                                                                                                                                             |1.0               |
-|B0045LLC7K|Appliances   |Water Filters     |Frigidaire WF3CB Puresource3 Refrigerator Water Filter , White, 1 Count (Pack of 1)                                                                                                                     |1.0               |
-|B00888OEQW|Amazon Home  |Reusable Filters  |Disposable Paper Coffee Filters 600 count - Compatible with Keurig, K-Cup machines & other Single Serve Coffee Brewer Reusable K Cups - Use Your Own Coffee & Make Your Own Pods - Works with All Brands|1.0               |
-|B00LGEKOMS|Amazon Home  |Reusable Filters  |iPartPlusMore Reusable Coffee Filters Compatible with 1.0 and 2.0 Keurig Single Cup Coffee Maker - BPA-Free Stainless Steel Refillable K Cup Coffee Filter with Fine Mesh Screen (Pack of 4)            |1.0               |
-|B00ST3XBKG|Amazon Home  |Reusable Filters  |iPartPlusMore Reusable Coffee Filters Compatible with 1.0 and 2.0 Keurig Single Cup Coffee Maker - BPA-Free Stainless Steel Refillable K Cup Coffee Filter with Fine Mesh Screen (Pack of 4)            |1.0               |
-|B01AUBYMK2|Amazon Home  |Reusable Filters  |iPartPlusMore Reusable Coffee Filters Compatible with 1.0 and 2.0 Keurig Single Cup Coffee Maker - BPA-Free Stainless Steel Refillable K Cup Coffee Filter with Fine Mesh Screen (Pack of 4)            |1.0               |
-|B01DLEL4EM|Amazon Home  |Disposable Filters|12 Pack Keurig Filter Replacement by K&J - Compatible with Keurig Coffee Machine (2.0 and older)                                                                                                        |1.0               |
-
+- [Result: Top 10 Similar Products](data/processed/ibcf_recos_for_B000DLB2FI.csv)
 
 ### User-Based CF 
-  Recommends items liked by similar users.
+
+  Recommends items /rated by similar users.
+
   - Sample User ID: ***AHXVMVJEAMRUIE4FDV5ZWWPWLNCA***
 
-***Top 10 Producst by similar users:***
-  |asin      |parent_asin|main_category|subcategory       |title                                                                                                                                                                                                   |similar user_id             |score|
-|----------|-----------|-------------|------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------|-----|
-|B00BUFJBQS|B07P3Y8JWY |Amazon Home  |Reusable Filters  |Disposable Paper Coffee Filters 600 count - Compatible with Keurig, K-Cup machines & other Single Serve Coffee Brewer Reusable K Cups - Use Your Own Coffee & Make Your Own Pods - Works with All Brands|AE6OIQD2NCZH75MBGXG3KHHZ7VTQ|1.0  |
-|B07P9KVVCS|B07P3Y8JWY |Amazon Home  |Reusable Filters  |Disposable Paper Coffee Filters 600 count - Compatible with Keurig, K-Cup machines & other Single Serve Coffee Brewer Reusable K Cups - Use Your Own Coffee & Make Your Own Pods - Works with All Brands|AE6OIQD2NCZH75MBGXG3KHHZ7VTQ|0.5  |
-|B01AUBYMK2|B07RNJY499 |Amazon Home  |Reusable Filters  |iPartPlusMore Reusable Coffee Filters Compatible with 1.0 and 2.0 Keurig Single Cup Coffee Maker - BPA-Free Stainless Steel Refillable K Cup Coffee Filter with Fine Mesh Screen (Pack of 4)            |AE6JZUKDILHPDYAS4NCSW7IOVZSQ|0.5  |
-|B01DLEL4EM|B0B3DB5HTC |Amazon Home  |Disposable Filters|12 Pack Keurig Filter Replacement by K&J - Compatible with Keurig Coffee Machine (2.0 and older)                                                                                                        |AE52GPMH6YF7HQMRWALACH3BBNBQ|0.5  |
-|B0001IRRLQ|B0BHNSLKNZ |Amazon Home  |Permanent Filters |Cuisinart Replacement Water Filters, 2-Pack                                                                                                                                                             |AEGHRMGHNK2723AIUD3JHXYO3FQQ|0.4  |
-|B00LGEKOMS|B07RNJY499 |Amazon Home  |Reusable Filters  |iPartPlusMore Reusable Coffee Filters Compatible with 1.0 and 2.0 Keurig Single Cup Coffee Maker - BPA-Free Stainless Steel Refillable K Cup Coffee Filter with Fine Mesh Screen (Pack of 4)            |AE5MCZGKGW5BCO437LRGRUHMK5RQ|0.4  |
-|B0001IRRLG|B0BHNSLKNZ |Amazon Home  |Permanent Filters |Cuisinart Replacement Water Filters, 2-Pack                                                                                                                                                             |AE6HYBNWZFMX3QTIL5LY2H4AT5JQ|0.2  |
-|B00888OEQW|B07P3Y8JWY |Amazon Home  |Reusable Filters  |Disposable Paper Coffee Filters 600 count - Compatible with Keurig, K-Cup machines & other Single Serve Coffee Brewer Reusable K Cups - Use Your Own Coffee & Make Your Own Pods - Works with All Brands|AEBXNYPC5RW2PRFDLQVILRSOON6Q|0.0  |
-|B000TETMVK|B0BHNSLKNZ |Amazon Home  |Permanent Filters |Cuisinart Replacement Water Filters, 2-Pack                                                                                                                                                             |AERYURF52GLN35JSFZVAMRZAZA7A|0.0  |
-|B00ST3XBKG|B07RNJY499 |Amazon Home  |Reusable Filters  |iPartPlusMore Reusable Coffee Filters Compatible with 1.0 and 2.0 Keurig Single Cup Coffee Maker - BPA-Free Stainless Steel Refillable K Cup Coffee Filter with Fine Mesh Screen (Pack of 4)            |AEXC6XAUJR3BCIEIFKOBV2OHPFGQ|0.0  |
+  - [Result: Top 10 Recommendations](data/processed/ubcf_recos_for_AHXVMVJEAMRUIE4FDV5ZWWPWLNCA.csv)
 
 
-
-
-### Matrix Factorization (SVD): 
+### Model-Based CF: Matrix Factorization (SVD): 
 Latent factor model for user-item interactions.
 
   - Sample User ID: ***AHXVMVJEAMRUIE4FDV5ZWWPWLNCA***
+  - [Result: Top 10 Recommendations](data/processed/mf_recos_for_AHXVMVJEAMRUIE4FDV5ZWWPWLNCA.csv)
 
-**Top 10 Product Recommendations:**
 
-  |asin      |parent_asin|main_category|subcategory       |title                                                                                                                                                                                                   |score                 |
-|----------|-----------|-------------|------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------|
-|B00BUFJBQS|B07P3Y8JWY |Amazon Home  |Reusable Filters  |Disposable Paper Coffee Filters 600 count - Compatible with Keurig, K-Cup machines & other Single Serve Coffee Brewer Reusable K Cups - Use Your Own Coffee & Make Your Own Pods - Works with All Brands|3.878524360012743e-06 |
-|B01AUBYMK2|B07RNJY499 |Amazon Home  |Reusable Filters  |iPartPlusMore Reusable Coffee Filters Compatible with 1.0 and 2.0 Keurig Single Cup Coffee Maker - BPA-Free Stainless Steel Refillable K Cup Coffee Filter with Fine Mesh Screen (Pack of 4)            |7.318199695606325e-07 |
-|B00LGEKOMS|B07RNJY499 |Amazon Home  |Reusable Filters  |iPartPlusMore Reusable Coffee Filters Compatible with 1.0 and 2.0 Keurig Single Cup Coffee Maker - BPA-Free Stainless Steel Refillable K Cup Coffee Filter with Fine Mesh Screen (Pack of 4)            |1.678886657168029e-15 |
-|B00434EMBM|B0BHNSLKNZ |Amazon Home  |Permanent Filters |Cuisinart Replacement Water Filters, 2-Pack                                                                                                                                                             |7.00615467363359e-16  |
-|B000DLB2FI|B000DLB2FI |Amazon Home  |Reusable Filters  |Keurig My K-Cup Reusable Coffee Filter - Old Model                                                                                                                                                      |6.410094489115632e-16 |
-|B0045LLC7K|B0045LLC7K |Appliances   |Water Filters     |Frigidaire WF3CB Puresource3 Refrigerator Water Filter , White, 1 Count (Pack of 1)                                                                                                                     |3.601035659669878e-16 |
-|B08TRCBMN9|B092LLM7H3 |Grocery      |Reusable Filters  |Reusable coffee pods for Coffee Makers (4 PACK Black and Purple)                                                                                                                                        |2.1194973153256652e-16|
-|B0001IRRLG|B0BHNSLKNZ |Amazon Home  |Permanent Filters |Cuisinart Replacement Water Filters, 2-Pack                                                                                                                                                             |1.7461047755239403e-16|
-|B01DP1IWKU|B092LLM7H3 |Grocery      |Reusable Filters  |Reusable coffee pods for Coffee Makers (4 PACK Black and Purple)                                                                                                                                        |1.0215997104753005e-16|
-|B01GAGM62M|B0B3DB5HTC |Amazon Home  |Disposable Filters|12 Pack Keurig Filter Replacement by K&J - Compatible with Keurig Coffee Machine (2.0 and older)                                                                                                        |5.974945431774294e-17 |
+
 
 ## 7. Evaluation
 
@@ -300,27 +225,6 @@ Measures ranking quality — rewards placing relevant items higher
 - **Hit Rate@K**:\
 For each user, if at least one relevant item is in the top-K recommendations, it's a "hit"
 
-
-- **Results** (Top-10, Leave-One-Out evaluation):
-  - **Item-Based CF**: 
-    - Hit Rate: ~0.75
-    - Precision@10: ~0.075
-    - Recall@10: ~0.75
-    - MAP: ~0.30
-    - NDCG@10: ~0.41
-  - **User-Based CF**: 
-    - Hit Rate: ~0.69
-    - Precision@10: ~0.069
-    - Recall@10: ~0.69
-    - MAP: ~0.18
-    - NDCG@10: ~0.30
-  - **Matrix Factorization (SVD)**: 
-    - Hit Rate: ~0.54
-    - Precision@10: ~0.054
-    - Recall@10: ~0.54
-    - MAP: ~0.26
-    - NDCG@10: ~0.32
-
 With sparse dataset such as the amazon reviews, lower metric values are common and expected. Below metric values can be considered a good baseline. 
 
 - HitRate@10 ~ 0.5
@@ -328,6 +232,10 @@ With sparse dataset such as the amazon reviews, lower metric values are common a
 - Recall@10 ~ 0.05
 - NDCG@10 ~ 0.2
 - MAP@10 ~ 0.05
+
+**Evaluation Results**: Top-10, Leave-One-Out (Most-Recent) Evaluation
+
+- [Evaluation Results](data/processed/ranking_eval_metrics.csv)
 
 
 **Visualization**: Comparing evaluation metrics for all algorithms. 

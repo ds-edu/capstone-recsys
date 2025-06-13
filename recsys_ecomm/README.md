@@ -148,7 +148,9 @@ This stage integrates feature engineering, text preprocessing, and essential NLP
 - Tokenization
 - Lemmatization
 
-### 4.1 Content-Based Filtering
+## MODELING
+
+### 5.1 Content-Based Filtering
 
 Content-based filtering is a recommendation technique that suggests products to a buyer/user by analyzing the features of the products they have previously liked or interacted with. The technique uses content/information such as categories, keywords, or descriptions to match similar products to the user's preferences. Key steps:
 
@@ -170,7 +172,7 @@ Find similar items using a vectorized text query (e.g., product description or s
 - [Result: Top 10 Products similar to query](data/processed/cbf_top10_similar_query.csv)
 
 
-## 6. Collaborative Filtering
+### 5.2 Collaborative Filtering
 
 Collaborative filtering is a technique used in recommendation systems to suggest products to users based on the preferences and behavior of similar users or similar products. Instead of relying on product attributes (like genre or price), collaborative filtering learns from user-item interactions (e.g., ratings, clicks, purchases).
 
@@ -178,33 +180,30 @@ Noise reduction was implemented as the first step in the process. Excessive nois
 
 Noise Reduction Step: Set minimum ratings for products (5) and users (2)
 
-### Item-Based CF: 
-
+### 5.2.1 Item-Based CF: 
 Recommends products similar to those a user has rated.
 
 - Sample ASIN ID rated by user: ***B000DLB2FI***
 
 - [Result: Top 10 Similar Products](data/processed/ibcf_recos_for_B000DLB2FI.csv)
 
-### User-Based CF 
-
-  Recommends items /rated by similar users.
+### 5.2.2 User-Based CF 
+Recommends items /rated by similar users.
 
   - Sample User ID: ***AHXVMVJEAMRUIE4FDV5ZWWPWLNCA***
 
   - [Result: Top 10 Recommendations](data/processed/ubcf_recos_for_AHXVMVJEAMRUIE4FDV5ZWWPWLNCA.csv)
 
 
-### Model-Based CF: Matrix Factorization (SVD): 
+### 5.2.3 Model-Based CF: Matrix Factorization (SVD): 
 Latent factor model for user-item interactions.
 
   - Sample User ID: ***AHXVMVJEAMRUIE4FDV5ZWWPWLNCA***
+
   - [Result: Top 10 Recommendations](data/processed/mf_recos_for_AHXVMVJEAMRUIE4FDV5ZWWPWLNCA.csv)
 
 
-
-
-## 7. Evaluation
+## 6. Evaluation
 
 
 **Metrics**: \
@@ -242,7 +241,7 @@ With sparse dataset such as the amazon reviews, lower metric values are common a
 
 ![ranking_metrics](reports/figures/top-k_ranking_metrics.png)
 
-## 8. Key Findings
+## 7. Key Findings
 
 - **Data**: The dataset is sparse, with most users rating only a few products.
 - **Category Imbalance**: A few categories dominate the ratings.
